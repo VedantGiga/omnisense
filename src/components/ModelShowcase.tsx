@@ -17,15 +17,19 @@ export default function ModelShowcase() {
       // Parallax effect on image
       if (imageRef.current) {
         gsap.fromTo(imageRef.current,
-          { yPercent: -20 },
+          { 
+            yPercent: -15,
+            scale: 1.15
+          },
           {
-            yPercent: 20,
+            yPercent: 15,
+            scale: 1.05,
             ease: "none",
             scrollTrigger: {
               trigger: sectionRef.current,
               start: "top bottom",
               end: "bottom top",
-              scrub: 1,
+              scrub: 1.5,
             }
           }
         );
@@ -34,23 +38,26 @@ export default function ModelShowcase() {
       // Gentle text reveals
       const reveals = sectionRef.current?.querySelectorAll("[data-reveal]");
       if (reveals) {
-        reveals.forEach((el) => {
-          gsap.fromTo(el,
-            { opacity: 0, y: 50 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 1.2,
-              ease: "power2.out",
-              scrollTrigger: {
-                trigger: el,
-                start: "top 85%",
-                end: "top 60%",
-                scrub: 1,
-              }
+        gsap.fromTo(reveals,
+          { 
+            opacity: 0, 
+            y: 60,
+            scale: 0.98 
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 2.5,
+            stagger: 0.1,
+            ease: "expo.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 65%",
+              toggleActions: "play none none reverse"
             }
-          );
-        });
+          }
+        );
       }
     }, sectionRef);
 
