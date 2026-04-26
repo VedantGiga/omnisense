@@ -42,46 +42,54 @@ const SHOWCASE_IMAGES = [
 function Slide({ img, idx }: { img: typeof SHOWCASE_IMAGES[0], idx: number }) {
   const slideRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
-  const contentTopRef = useRef<HTMLDivElement>(null);
-  const contentBottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    
+
     const ctx = gsap.context(() => {
-      // Content reveal
-      const allElements = slideRef.current?.querySelectorAll("[data-reveal]");
-      if (allElements) {
-        gsap.fromTo(allElements, 
-          { opacity: 0, y: 30 },
+      // 1. Premium Content Reveal
+      const reveals = slideRef.current?.querySelectorAll("[data-reveal]");
+      if (reveals) {
+        gsap.fromTo(reveals,
+          {
+            opacity: 0,
+            y: 80,
+            filter: "blur(20px)",
+            scale: 0.95
+          },
           {
             opacity: 1,
             y: 0,
-            stagger: 0.08,
-            ease: "power2.out",
+            filter: "blur(0px)",
+            scale: 1,
+            stagger: 0.1,
+            duration: 1.5,
+            ease: "power4.out",
             scrollTrigger: {
               trigger: slideRef.current,
-              start: "top 75%",
-              end: "top 35%",
-              scrub: 0.5
+              start: "top 80%",
+              toggleActions: "play none none reverse",
             }
           }
         );
       }
 
-      // Parallax image
+      // 2. High-Fidelity Parallax (Slow and weighted)
       if (imageRef.current) {
         gsap.fromTo(imageRef.current,
-          { yPercent: -10, scale: 1.05 },
           {
-            yPercent: 10,
+            yPercent: -7.5,
+            scale: 1.05,
+          },
+          {
+            yPercent: 7.5,
             scale: 1,
             ease: "none",
             scrollTrigger: {
               trigger: slideRef.current,
               start: "top bottom",
               end: "bottom top",
-              scrub: 0.5
+              scrub: 1,
             }
           }
         );
@@ -101,18 +109,17 @@ function Slide({ img, idx }: { img: typeof SHOWCASE_IMAGES[0], idx: number }) {
             fill
             className={styles.image}
             priority={idx === 0}
+            sizes="100vw"
           />
         </div>
       </div>
 
-      {/* Top Left: Headings */}
-      <div ref={contentTopRef} className={styles.contentTop}>
-        <div data-reveal className={styles.eyebrow}>{img.eyebrow}</div>
+      <div className={styles.contentTop}>
+        <span data-reveal className={styles.eyebrow}>{img.eyebrow}</span>
         <h2 data-reveal className={styles.headline}>{img.headline}</h2>
       </div>
 
-      {/* Bottom Right: Description */}
-      <div ref={contentBottomRef} className={styles.contentBottom}>
+      <div className={styles.contentBottom}>
         <p data-reveal className={styles.desc}>{img.desc}</p>
       </div>
     </div>

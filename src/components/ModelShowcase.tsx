@@ -17,7 +17,7 @@ export default function ModelShowcase() {
       // Parallax effect on image
       if (imageRef.current) {
         gsap.fromTo(imageRef.current,
-          { 
+          {
             yPercent: -15,
             scale: 1.15
           },
@@ -39,10 +39,10 @@ export default function ModelShowcase() {
       const reveals = sectionRef.current?.querySelectorAll("[data-reveal]");
       if (reveals) {
         gsap.fromTo(reveals,
-          { 
-            opacity: 0, 
+          {
+            opacity: 0,
             y: 60,
-            scale: 0.98 
+            scale: 0.98
           },
           {
             opacity: 1,

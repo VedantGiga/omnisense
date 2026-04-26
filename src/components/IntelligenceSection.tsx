@@ -13,8 +13,8 @@ const INTELLIGENCE_CARDS = [
     desc: "A natural language A.I. interface that interprets thought-patterns into system commands. Synergy learns your workflow and anticipates your next move before you even make it.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"/>
-        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
+        <circle cx="12" cy="12" r="3" />
       </svg>
     )
   },
@@ -24,7 +24,7 @@ const INTELLIGENCE_CARDS = [
     desc: "Using advanced neural-beamforming, Babl isolates specific voices in a crowd and provides zero-latency translation directly into your sensory stream.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
         <text x="7" y="14" fontSize="8" fontFamily="sans-serif" fill="currentColor">あa</text>
       </svg>
     )
@@ -35,8 +35,8 @@ const INTELLIGENCE_CARDS = [
     desc: "Owl isolates environmental noise using 16 external microphones, allowing you to focus on subtle sounds in high-density acoustic environments.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        <circle cx="12" cy="12" r="3"/>
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <circle cx="12" cy="12" r="3" />
       </svg>
     )
   },
@@ -46,7 +46,7 @@ const INTELLIGENCE_CARDS = [
     desc: "Sherlock scans your environment for visual and data-based anomalies, providing real-time answers to complex spatial queries without a phone.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
       </svg>
     )
   }
@@ -58,10 +58,10 @@ export default function IntelligenceSection() {
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
-    
+
     const ctx = gsap.context(() => {
       // Reveal headers
-      gsap.fromTo([`.${styles.title}`, `.${styles.subtitle}`], 
+      gsap.fromTo([`.${styles.title}`, `.${styles.subtitle}`],
         { opacity: 0, y: 20 },
         {
           opacity: 1,
@@ -99,7 +99,7 @@ export default function IntelligenceSection() {
   return (
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.background}>
-        <Image 
+        <Image
           src="/omnisense_intelligence_bg_png_1777170023828.png"
           alt="Natural Intelligence"
           fill
