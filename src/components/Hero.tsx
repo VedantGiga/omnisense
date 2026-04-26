@@ -104,7 +104,7 @@ export default function Hero() {
         <div className={styles.eyebrow}>01 // SYSTEM OVERVIEW</div>
         <h1 className={styles.title}>OmniSense One</h1>
         <p className={styles.subtitle}>
-          The world's first bio-integrated agentic computer.
+          The world&apos;s first bio-integrated agentic computer.
         </p>
       </div>
 

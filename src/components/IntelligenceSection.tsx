@@ -79,15 +79,16 @@ export default function IntelligenceSection() {
       // Horizontal scroll
       if (cardsRef.current) {
         gsap.to(cardsRef.current, {
-          x: () => -(cardsRef.current!.scrollWidth - window.innerWidth + 160),
+          x: () => -(cardsRef.current!.scrollWidth - window.innerWidth + 80),
           ease: "none",
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: () => `+=${cardsRef.current!.scrollWidth}`,
+            end: () => `+=${cardsRef.current!.scrollWidth - window.innerWidth}`,
             scrub: 0.5,
             pin: true,
             anticipatePin: 1,
+            invalidateOnRefresh: true,
           }
         });
       }

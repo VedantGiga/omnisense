@@ -101,7 +101,7 @@ export default function Specifications() {
           </div>
         </div>
         <div className={styles.gridCol} data-reveal>
-          <div className={styles.label}>WHAT'S IN THE BOX</div>
+          <div className={styles.label}>WHAT&apos;S IN THE BOX</div>
           <div className={styles.boxList}>
             {boxItems.map((item, i) => (
               <div key={i} className={styles.boxItem}>
