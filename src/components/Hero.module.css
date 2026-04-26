@@ -4,7 +4,7 @@
   min-height: 200vh;
   background-color: #0b0b0d;
   background: radial-gradient(circle at center, #121217 0%, #06060a 100%);
-  overflow-x: hidden;
+  overflow: hidden;
   color: #ffffff;
 }
 

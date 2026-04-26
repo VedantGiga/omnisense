@@ -41,8 +41,15 @@ export default function AssemblyHero() {
       },
     });
 
+    // CRITICAL: Refresh all triggers after the pin spacer is created
+    // to ensure subsequent sections have correct offsets.
+    const refreshTimer = setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 500);
+
     return () => {
       st.kill();
+      clearTimeout(refreshTimer);
     };
   }, [isLoaded]);
 

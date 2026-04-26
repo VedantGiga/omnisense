@@ -2,7 +2,6 @@ import Hero from "@/components/Hero";
 import AssemblyHero from "@/components/AssemblyHero";
 import MetricsSection from "@/components/MetricsSection";
 import ModelShowcase from "@/components/ModelShowcase";
-import Capabilities from "@/components/Capabilities";
 import Specifications from "@/components/Specifications";
 import ImageShowcase from "@/components/ImageShowcase";
 import IntelligenceSection from "@/components/IntelligenceSection";
@@ -15,7 +14,6 @@ export default function Home() {
       <AssemblyHero />
       <MetricsSection />
       <ModelShowcase />
-      <Capabilities />
       <ImageShowcase />
       <IntelligenceSection />
       <Specifications />

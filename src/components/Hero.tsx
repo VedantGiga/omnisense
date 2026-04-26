@@ -70,7 +70,13 @@ export default function Hero() {
       }
     }, sectionRef);
 
-    return () => ctx.revert();
+    // Ensure layout is stable
+    const timer = setTimeout(() => ScrollTrigger.refresh(), 500);
+
+    return () => {
+      ctx.revert();
+      clearTimeout(timer);
+    };
   }, []);
 
   return (

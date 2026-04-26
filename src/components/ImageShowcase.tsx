@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import styles from "./ImageShowcase.module.css";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 
 const SHOWCASE_IMAGES = [
   {
@@ -41,68 +40,36 @@ const SHOWCASE_IMAGES = [
 
 function Slide({ img, idx }: { img: typeof SHOWCASE_IMAGES[0], idx: number }) {
   const slideRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  // Use Framer Motion useScroll - much more reliable in pinned environments
+  const { scrollYProgress } = useScroll({
+    target: slideRef,
+    offset: ["start end", "end start"]
+  });
 
-    const ctx = gsap.context(() => {
-      // 1. Premium Content Reveal
-      const reveals = slideRef.current?.querySelectorAll("[data-reveal]");
-      if (reveals) {
-        gsap.fromTo(reveals,
-          {
-            opacity: 0,
-            y: 80,
-            filter: "blur(20px)",
-            scale: 0.95
-          },
-          {
-            opacity: 1,
-            y: 0,
-            filter: "blur(0px)",
-            scale: 1,
-            stagger: 0.1,
-            duration: 1.5,
-            ease: "power4.out",
-            scrollTrigger: {
-              trigger: slideRef.current,
-              start: "top 80%",
-              toggleActions: "play none none reverse",
-            }
-          }
-        );
-      }
+  // Create smooth spring animations for that "weighted" premium feel
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
-      // 2. High-Fidelity Parallax (Slow and weighted)
-      if (imageRef.current) {
-        gsap.fromTo(imageRef.current,
-          {
-            yPercent: -7.5,
-            scale: 1.05,
-          },
-          {
-            yPercent: 7.5,
-            scale: 1,
-            ease: "none",
-            scrollTrigger: {
-              trigger: slideRef.current,
-              start: "top bottom",
-              end: "bottom top",
-              scrub: 1,
-            }
-          }
-        );
-      }
-    }, slideRef);
+  // Parallax transforms
+  const y = useTransform(smoothProgress, [0, 1], ["-15%", "15%"]);
+  const scale = useTransform(smoothProgress, [0, 0.5, 1], [1.2, 1.05, 1.2]);
+  const opacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
-    return () => ctx.revert();
-  }, []);
+  // Technical text movement
+  const textYTop = useTransform(smoothProgress, [0, 1], [40, -40]);
+  const textYBottom = useTransform(smoothProgress, [0, 1], [-40, 40]);
 
   return (
     <div ref={slideRef} className={styles.slide}>
-      <div className={styles.imageContainer}>
-        <div ref={imageRef} className={styles.parallaxWrapper}>
+      <motion.div style={{ opacity }} className={styles.imageContainer}>
+        <motion.div
+          style={{ y, scale }}
+          className={styles.parallaxWrapper}
+        >
           <Image
             src={img.src}
             alt={img.headline}
@@ -111,16 +78,33 @@ function Slide({ img, idx }: { img: typeof SHOWCASE_IMAGES[0], idx: number }) {
             priority={idx === 0}
             sizes="100vw"
           />
-        </div>
-      </div>
+        </motion.div>
+        <div className={styles.textOverlay} />
 
-      <div className={styles.contentTop}>
-        <span data-reveal className={styles.eyebrow}>{img.eyebrow}</span>
-        <h2 data-reveal className={styles.headline}>{img.headline}</h2>
-      </div>
+        {/* Technical Corner Accents */}
+        <div className={styles.cornerTL} />
+        <div className={styles.cornerBR} />
+      </motion.div>
 
-      <div className={styles.contentBottom}>
-        <p data-reveal className={styles.desc}>{img.desc}</p>
+      <motion.div
+        style={{ y: textYTop, opacity }}
+        className={styles.contentTop}
+      >
+        <span className={styles.eyebrow}>{img.eyebrow}</span>
+        <h2 className={styles.headline}>{img.headline}</h2>
+      </motion.div>
+
+      <motion.div
+        style={{ y: textYBottom, opacity }}
+        className={styles.contentBottom}
+      >
+        <p className={styles.desc}>{img.desc}</p>
+      </motion.div>
+
+      {/* Index Indicator */}
+      <div className={styles.slideIndex}>
+        <span className={styles.indexNum}>{String(idx + 1).padStart(2, '0')}</span>
+        <div className={styles.indexLine} />
       </div>
     </div>
   );

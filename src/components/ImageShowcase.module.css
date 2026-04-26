@@ -13,6 +13,9 @@
   height: 100vh;
   min-height: 800px;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .imageContainer {
@@ -26,10 +29,10 @@
 
 .parallaxWrapper {
   position: absolute;
-  top: -7.5%;
+  top: -20%;
   left: 0;
   width: 100%;
-  height: 115%;
+  height: 140%;
   will-change: transform;
 }
 
@@ -37,91 +40,129 @@
   object-fit: cover;
   object-position: center;
   -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
 }
 
-/* 
-   Aligned to absolute corners with reduced size 
-   to prevent overlaying central artifacts 
-*/
+.textOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, 
+    transparent 0%, 
+    rgba(0, 0, 0, 0.1) 40%, 
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Technical UI Accents */
+.cornerTL {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  width: 20px;
+  height: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 5;
+}
+
+.cornerBR {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  width: 20px;
+  height: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-right: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 5;
+}
+
+.slideIndex {
+  position: absolute;
+  left: 50px;
+  bottom: 50px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  z-index: 10;
+  mix-blend-mode: difference;
+}
+
+.indexNum {
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  color: #fff;
+  letter-spacing: 0.1em;
+}
+
+.indexLine {
+  width: 60px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Content Layout */
 .contentTop {
   position: absolute;
-  top: 50px;
-  left: 50px;
-  max-width: 400px;
+  top: 80px;
+  left: 80px;
+  max-width: 450px;
   z-index: 10;
-  pointer-events: none;
 }
 
 .contentBottom {
   position: absolute;
-  bottom: 50px;
-  right: 50px;
-  max-width: 320px;
+  bottom: 80px;
+  right: 80px;
+  max-width: 380px;
   text-align: right;
   z-index: 10;
-  pointer-events: none;
 }
 
 .eyebrow {
   font-family: var(--font-mono), monospace;
   font-size: 10px;
   font-weight: 600;
-  letter-spacing: 0.2em;
-  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.5);
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   display: block;
 }
 
 .headline {
-  font-size: clamp(28px, 3.2vw, 44px);
-  line-height: 1.1;
+  font-size: clamp(32px, 4vw, 56px);
+  line-height: 1.05;
   font-weight: 700;
   color: #fff;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.03em;
   margin: 0;
   text-transform: uppercase;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .desc {
   font-size: 18px;
   line-height: 1.6;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.6);
   font-weight: 400;
   margin: 0;
+  text-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* Responsive Layouts */
+/* Responsive */
 @media (max-width: 1024px) {
-  .contentTop {
-    top: 40px;
-    left: 40px;
-    max-width: 80%;
-  }
-
-  .contentBottom {
-    bottom: 40px;
-    right: 40px;
-    left: 40px;
-    text-align: left;
-    max-width: 100%;
-  }
-
-  .headline {
-    font-size: clamp(24px, 6vw, 36px);
-  }
+  .contentTop { top: 60px; left: 40px; }
+  .contentBottom { bottom: 60px; right: 40px; }
+  .slideIndex { display: none; }
 }
 
 @media (max-width: 768px) {
-  .contentTop {
-    top: 30px;
-    left: 24px;
-  }
-
-  .contentBottom {
-    bottom: 30px;
-    left: 24px;
-    right: 24px;
-  }
+  .contentTop { top: 40px; left: 24px; }
+  .contentBottom { bottom: 40px; left: 24px; right: 24px; text-align: left; }
+  .headline { font-size: 28px; }
+  .desc { font-size: 15px; }
 }
