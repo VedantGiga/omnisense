@@ -1,0 +1,254 @@
+.section {
+  position: relative;
+  background: #040406; /* Pitch black brutalist bg */
+  color: #fff;
+  padding: 180px 0 200px;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.intro {
+  padding: 0 5vw 120px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  color: #888;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.title {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(60px, 10vw, 160px);
+  line-height: 0.85;
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  margin: 0;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+/* ── BRUTALIST UNEVEN GRID ── */
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 150px; /* Small base rows for fine-grained uneven spanning */
+  gap: 24px;
+  padding: 0 5vw;
+  position: relative;
+}
+
+/* The outer wrapper for the magnetic card */
+.bentoCard {
+  position: relative;
+  perspective: 1500px;
+  z-index: 1;
+}
+
+/* The inner card that actually rotates */
+.magneticInner {
+  width: 100%;
+  height: 100%;
+  background: #0a0a0c;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.bentoCard:hover .magneticInner {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+  z-index: 10;
+}
+
+/* Uneven Grid Placements */
+
+/* Card 1: Very tall, takes up the left side */
+.card1 {
+  grid-column: 1 / 6;
+  grid-row: span 5;
+}
+
+/* Typographic block: Small, stark, pushed to the top right */
+.cardTypo {
+  grid-column: 6 / 10;
+  grid-row: span 2;
+  margin-top: 40px; /* offset it aggressively */
+}
+
+/* Card 2: Wide, horizontal, breaks the grid by overlapping left */
+.card2 {
+  grid-column: 5 / 13;
+  grid-row: span 3;
+  margin-left: -60px; /* Brutalist overlap over Card 1's column */
+  margin-top: 20px;
+  z-index: 2;
+}
+
+/* Card 3: Square, offset at the bottom right */
+.card3 {
+  grid-column: 8 / 12;
+  grid-row: span 3;
+  margin-top: -40px; /* overlap into card 2 */
+}
+
+/* ── CARD CONTENTS ── */
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 32px;
+  transform: translateZ(30px); /* Makes content float off the background during 3D rotation */
+}
+
+.cardHeader {
+  margin-bottom: auto;
+}
+
+.badge {
+  font-family: var(--font-mono), monospace;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background: #fff;
+  color: #000;
+  padding: 4px 12px;
+  display: inline-block;
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  margin: 30px 0;
+  filter: grayscale(20%);
+  transition: filter 0.4s ease;
+}
+
+.imageWrapperWide {
+  position: relative;
+  width: 100%;
+  flex: 1; /* take remaining space */
+  margin: 30px 0;
+  filter: grayscale(20%);
+  transition: filter 0.4s ease;
+}
+
+.bentoCard:hover .imageWrapper,
+.bentoCard:hover .imageWrapperWide {
+  filter: grayscale(0%);
+}
+
+.image {
+  object-fit: cover;
+}
+
+.cardFooter {
+  margin-top: auto;
+}
+
+.cardFooterRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 40px;
+  margin-top: auto;
+}
+
+.cardTitle {
+  font-family: var(--font-display), sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  white-space: pre-line;
+  margin: 0 0 16px 0;
+}
+
+.cardFooterRow .cardTitle {
+  margin: 0;
+  flex: 1;
+}
+
+.cardBody {
+  font-family: var(--font-mono), monospace;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #888;
+  margin: 0;
+}
+
+.cardFooterRow .cardBody {
+  flex: 1;
+}
+
+/* Typo Card specific styles */
+.typoContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 32px;
+  background: #fff;
+  color: #000;
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(20px);
+}
+
+.typoSmall {
+  font-family: var(--font-mono), monospace;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+}
+
+.typoLarge {
+  font-family: var(--font-display), sans-serif;
+  font-size: 80px;
+  font-weight: 900;
+  line-height: 0.8;
+  letter-spacing: -0.05em;
+  margin-top: 10px;
+}
+
+.gridLines {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* Responsive fallback */
+@media (max-width: 1024px) {
+  .bentoGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  .card1, .card2, .card3, .cardTypo {
+    margin: 0;
+    grid-column: auto;
+    grid-row: auto;
+  }
+  
+  .magneticInner {
+    min-height: 400px;
+  }
+  
+  .cardFooterRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}

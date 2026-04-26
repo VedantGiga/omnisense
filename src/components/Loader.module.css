@@ -1,0 +1,66 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #080808;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+}
+
+.wordmark {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(242, 242, 242, 0.35);
+}
+
+.progressWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.track {
+  width: 180px;
+  height: 1px;
+  background: rgba(242, 242, 242, 0.1);
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(242, 242, 242, 0.3),
+    rgba(242, 242, 242, 0.9)
+  );
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.counter {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: rgba(242, 242, 242, 0.25);
+  font-variant-numeric: tabular-nums;
+}
+
+.hint {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(242, 242, 242, 0.18);
+  text-transform: lowercase;
+}

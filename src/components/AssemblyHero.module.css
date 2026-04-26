@@ -1,0 +1,356 @@
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(180deg, #f5f5f5 0%, #e8e8e8 100%);
+  overflow: hidden;
+}
+
+/* No overlays */
+.vignette {
+  display: none;
+}
+
+.vignetteBottom {
+  display: none;
+}
+
+/* ── Navigation ───────────────────────────────────────────────────────────── */
+.nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 32px 52px;
+}
+
+.navBrand {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: #0a0a0a;
+}
+
+.navBrandLight {
+  font-weight: 300;
+  color: rgba(10, 10, 10, 0.55);
+}
+
+.navLinks {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navLinks a {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(10, 10, 10, 0.65);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navLinks a:hover {
+  color: #0a0a0a;
+}
+
+.navCta {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: rgba(10, 10, 10, 0.7);
+  text-decoration: none;
+  padding: 8px 20px;
+  border: 1px solid rgba(10, 10, 10, 0.2);
+  border-radius: 100px;
+  transition: all 0.25s ease;
+  display: inline-block;
+}
+
+.navCta:hover {
+  border-color: rgba(10, 10, 10, 0.5);
+  color: #0a0a0a;
+  background: rgba(10, 10, 10, 0.05);
+}
+
+/* ── Hero text block — editorial bottom-left ──────────────────────────────── */
+.textBlock {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 0 52px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(10, 10, 10, 0.4);
+  display: block;
+}
+
+.headlineWrap {
+  display: flex;
+  flex-direction: column;
+  line-height: 0.9;
+  overflow: hidden;
+}
+
+.headline {
+  font-size: clamp(72px, 10vw, 148px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: #0a0a0a;
+  line-height: 0.9;
+  display: block;
+  text-transform: uppercase;
+}
+
+.headlineRow {
+  display: flex;
+  align-items: baseline;
+}
+
+.headlineItalic {
+  font-size: clamp(72px, 10vw, 148px);
+  font-weight: 300;
+
+  letter-spacing: -0.04em;
+  color: rgba(10, 10, 10, 0.45);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.textFooter {
+  display: flex;
+  align-items: center;
+  gap: 52px;
+  padding-top: 4px;
+}
+
+.subtext {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(10, 10, 10, 0.55);
+  font-weight: 400;
+  letter-spacing: -0.005em;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(10, 10, 10, 0.7);
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(10, 10, 10, 0.3);
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.cta:hover {
+  color: #0a0a0a;
+  border-color: rgba(10, 10, 10, 0.7);
+}
+
+/* ── Scroll indicator ─────────────────────────────────────────────────────── */
+.scrollIndicator {
+  position: absolute;
+  bottom: 44px;
+  right: 52px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(10, 10, 10, 0.35);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.scrollDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(10, 10, 10, 0.4);
+}
+
+/* ── Content overlay ──────────────────────────────────────────────────────── */
+.content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 15;
+  padding: 0 52px 80px;
+}
+
+.textWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 900px;
+}
+
+/* ── Frame counter ────────────────────────────────────────────────────────── */
+.frameHint {
+  position: absolute;
+  bottom: 20px;
+  left: 52px;
+  z-index: 10;
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: rgba(10, 10, 10, 0.25);
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 24px 28px;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .textBlock {
+    padding: 0 28px 52px;
+  }
+
+  .scrollIndicator {
+    right: 28px;
+  }
+
+  .frameHint {
+    left: 28px;
+  }
+}
+
+.annotation {
+  position: absolute;
+  z-index: 30;
+  color: white;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  pointer-events: none;
+}
+
+.annotTitle {
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.annotDesc {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.annotLine {
+  width: 40px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+  margin-top: 8px;
+}
+
+.annotation_topLeft {
+  top: 30%;
+  left: 15%;
+}
+
+.annotation_topRight {
+  top: 25%;
+  right: 15%;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.annotation_topRight .annotLine {
+  align-self: flex-end;
+}
+
+.annotation_bottomLeft {
+  bottom: 25%;
+  left: 20%;
+}
+
+.annotation_center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.annotation_center .annotLine {
+  width: 80px;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    padding: 24px 28px;
+  }
+
+  .navLinks {
+    display: none;
+  }
+
+  .textBlock {
+    padding: 0 28px 52px;
+  }
+
+  .scrollIndicator {
+    right: 28px;
+  }
+
+  .frameHint {
+    left: 28px;
+  }
+
+  .annotation_topRight {
+    right: 24px;
+    top: 90px;
+    max-width: 180px;
+  }
+
+  .annotation_topLeft {
+    left: 24px;
+    top: 90px;
+    max-width: 180px;
+  }
+
+  .annotation_bottomLeft {
+    left: 24px;
+    bottom: 120px;
+    max-width: 200px;
+    padding: 16px;
+  }
+
+  .annotation_center {
+    max-width: 280px;
+  }
+}
