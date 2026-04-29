@@ -103,3 +103,125 @@
     font-size: 15px;
   }
 }
+
+/* Modal Overlay & Menu Styling */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 24px;
+}
+
+.modalMenu {
+  background: #2a2b2d;
+  width: 95%;
+  max-width: 460px;
+  border-radius: 32px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.menuGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+.card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 16px;
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+.card:nth-child(1), .card:nth-child(2) {
+  grid-column: span 3;
+  aspect-ratio: 4/5;
+}
+
+.card:nth-child(3) {
+  grid-column: span 6;
+  aspect-ratio: 2.8/1;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 24px 32px;
+}
+
+.card:nth-child(4), .card:nth-child(5), .card:nth-child(6) {
+  grid-column: span 2;
+  aspect-ratio: 1/1.3;
+}
+
+.cardDark { background: #505256; color: #fff; }
+.cardCream { background: #f8f6ec; color: #1a1a1a; }
+.cardGreen { background: #eef7de; color: #1a1a1a; }
+.cardPurple { background: #f0ebf8; color: #1a1a1a; }
+.cardLightGray { background: #f4f4f4; color: #1a1a1a; }
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 10;
+}
+
+.cardImg {
+  position: absolute;
+  bottom: -20px;
+  width: 90%;
+  height: 80%;
+  object-fit: cover;
+}
+
+.imgWide {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50%;
+  height: 120%;
+  bottom: auto;
+  object-fit: cover;
+}
+
+.cardImgSmall {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 75%;
+  object-fit: cover;
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 8px 4px;
+  font-size: 9px;
+  font-family: var(--font-mono);
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}

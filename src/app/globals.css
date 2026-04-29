@@ -69,20 +69,12 @@ a {
   font-family: inherit;
 }
 
-/* Scrollbar styling for light theme */
-::-webkit-scrollbar {
-  width: 6px;
+/* Hide scrollbar globally for a cleaner, premium app-like feel */
+::-webkit-scrollbar { 
+  display: none; 
 }
 
-::-webkit-scrollbar-track {
-  background: var(--light-2);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--ink-dim);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--ink-muted);
+html, body {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }

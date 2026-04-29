@@ -10,6 +10,7 @@ import {
   useTransform,
   useSpring,
   Variants,
+  Easing,
 } from "framer-motion";
 
 const STATS = [
@@ -19,11 +20,13 @@ const STATS = [
   { label: "HAPTICS", value: "10K POINTS" },
 ];
 
+const customEase: Easing = [0.16, 1, 0.3, 1];
+
 const wordVariant: Variants = {
   hidden: { y: "110%" },
   visible: (i: number) => ({
     y: "0%",
-    transition: { duration: 1.05, ease: [0.16, 1, 0.3, 1], delay: i * 0.13 },
+    transition: { duration: 1.05, ease: customEase, delay: i * 0.13 },
   }),
 };
 
@@ -32,13 +35,13 @@ const fadeUpVariant: Variants = {
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 },
+    transition: { duration: 0.85, ease: customEase, delay: i * 0.08 },
   }),
 };
 
 const lineVariant: Variants = {
   hidden: { scaleX: 0 },
-  visible: { scaleX: 1, transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } },
+  visible: { scaleX: 1, transition: { duration: 0.75, ease: customEase } },
 };
 
 const slideVariant: Variants = {
@@ -46,7 +49,7 @@ const slideVariant: Variants = {
   visible: (i: number) => ({
     opacity: 1,
     x: 0,
-    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1], delay: 0.3 + i * 0.1 },
+    transition: { duration: 0.65, ease: customEase, delay: 0.3 + i * 0.1 },
   }),
 };
 
