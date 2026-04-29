@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Oswald, JetBrains_Mono } from "next/font/google";
+import { Inter, Oswald, JetBrains_Mono, Syncopate } from "next/font/google";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import "./globals.css";
@@ -25,6 +25,13 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
+const syncopate = Syncopate({
+  subsets: ["latin"],
+  variable: "--font-syncopate",
+  weight: ["400", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "OmniSense — Technical Dossier",
   description: "A 128-Component Biometric Hardware Integration interface.",
@@ -39,7 +46,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${oswald.variable} ${jetbrains.variable}`} suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} ${oswald.variable} ${jetbrains.variable} ${syncopate.variable}`} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <Navbar />
         <SmoothScroll>{children}</SmoothScroll>
