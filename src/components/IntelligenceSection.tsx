@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import styles from "./IntelligenceSection.module.css";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
 
 const INTELLIGENCE_CARDS = [
   {
@@ -53,98 +52,36 @@ const INTELLIGENCE_CARDS = [
 ];
 
 export default function IntelligenceSection() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const cardsRef = useRef<HTMLDivElement>(null);
-  const overlayRef = useRef<HTMLDivElement>(null);
-  const bgRef = useRef<HTMLDivElement>(null);
+  const targetRef = useRef<HTMLElement>(null);
+  
+  // Intersection Observer for reliable reveal animations (avoids GSAP position bugs)
+  const isInView = useInView(targetRef, { once: true, amount: 0.1 });
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+  // Scroll tracking for CSS sticky horizontal scroll
+  const { scrollYProgress } = useScroll({
+    target: targetRef,
+    // Start tracking when top of section hits top of viewport
+    // End tracking when bottom of section hits bottom of viewport
+    offset: ["start start", "end end"],
+  });
 
-    const ctx = gsap.context(() => {
-
-      // --- CURTAIN REVEAL: plays once when section enters viewport ---
-      if (overlayRef.current) {
-        gsap.fromTo(
-          overlayRef.current,
-          { scaleY: 1 },
-          {
-            scaleY: 0,
-            duration: 1.2,
-            ease: "power3.inOut",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 80%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-      }
-
-      // --- BG IMAGE: subtle zoom on reveal ---
-      if (bgRef.current) {
-        gsap.fromTo(
-          bgRef.current,
-          { scale: 1.06 },
-          {
-            scale: 1,
-            duration: 1.4,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 80%",
-              toggleActions: "play none none none",
-            },
-          }
-        );
-      }
-
-      // --- HEADER: slide up once section is revealed ---
-      gsap.fromTo(
-        [`.${styles.title}`, `.${styles.subtitle}`],
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 30%",
-          },
-        }
-      );
-
-      // Horizontal scroll
-      if (cardsRef.current) {
-        gsap.to(cardsRef.current, {
-          x: () => -(cardsRef.current!.scrollWidth - window.innerWidth + 80),
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: () => `+=${cardsRef.current!.scrollWidth - window.innerWidth}`,
-            scrub: 0.5,
-            pin: true,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-          }
-        });
-      }
-    }, sectionRef);
-
-    const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 500);
-
-    return () => {
-      ctx.revert();
-      clearTimeout(refreshTimer);
-    };
-  }, []);
+  // Transform scroll progress (0-1) into X translation for the cards
+  // We want to move left by roughly (total width - viewport width)
+  // We use percentages to keep it responsive without measuring
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-65%"]);
 
   return (
-    <section ref={sectionRef} className={styles.section}>
-        <div ref={bgRef} className={styles.background}>
+    <section ref={targetRef} className={styles.section}>
+      {/* Sticky container stays fixed while the tall section scrolls */}
+      <div className={styles.stickyContainer}>
+        
+        {/* Background Layer */}
+        <motion.div 
+          className={styles.background}
+          initial={{ scale: 1.08 }}
+          animate={isInView ? { scale: 1 } : { scale: 1.08 }}
+          transition={{ duration: 1.4, ease: "easeOut" }}
+        >
           <Image
             src="/omnisense_intelligence_bg_png_1777170023828.png"
             alt="Natural Intelligence"
@@ -153,30 +90,45 @@ export default function IntelligenceSection() {
             priority
             sizes="100vw"
           />
-        </div>
+        </motion.div>
 
-        {/* Overlay at section level — above both background (z:1) and container (z:10) */}
-        <div ref={overlayRef} className={styles.overlay} />
+        {/* Content Container */}
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <motion.h2 
+              className={styles.title}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            >
+              Two taps to <br />intelligence
+            </motion.h2>
+            <motion.p 
+              className={styles.subtitle}
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
+            >
+              The OmniSense Prime-X lets you talk to apps the way <br />you talk to people.
+            </motion.p>
+          </div>
 
-      <div className={styles.container}>
-        <div className={styles.header}>
-          <h2 className={styles.title}>Two taps to <br />intelligence</h2>
-          <p className={styles.subtitle}>
-            The OmniSense Prime-X lets you talk to apps the way <br />you talk to people.
-          </p>
-        </div>
-
-        <div ref={cardsRef} className={styles.cardsWrapper}>
-          {INTELLIGENCE_CARDS.map((card, i) => (
-            <div key={i} className={styles.card}>
-              <div className={styles.cardHeader}>
-                <div className={styles.cardEyebrow}>{card.eyebrow}</div>
-                <div className={styles.cardIcon}>{card.icon}</div>
+          {/* Cards Wrapper — mapped to scrollYProgress */}
+          <motion.div 
+            className={styles.cardsWrapper}
+            style={{ x }}
+          >
+            {INTELLIGENCE_CARDS.map((card, i) => (
+              <div key={i} className={styles.card}>
+                <div className={styles.cardHeader}>
+                  <div className={styles.cardEyebrow}>{card.eyebrow}</div>
+                  <div className={styles.cardIcon}>{card.icon}</div>
+                </div>
+                <h3 className={styles.cardTitle}>{card.title}</h3>
+                <p className={styles.cardDesc}>{card.desc}</p>
               </div>
-              <h3 className={styles.cardTitle}>{card.title}</h3>
-              <p className={styles.cardDesc}>{card.desc}</p>
-            </div>
-          ))}
+            ))}
+          </motion.div>
         </div>
       </div>
     </section>
