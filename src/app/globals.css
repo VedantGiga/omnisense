@@ -12,19 +12,27 @@
   --font-mono: var(--font-mono), monospace;
 
   /* Engineering Blueprint Palette */
-  --light: #F4F4F2;        /* Studio Cream */
-  --light-2: #EAEAEA;      /* Off-cream for subtle boxes/panels */
-  --light-border: #B3B6B8; /* Brushed Silver borders */
+  --light: #F4F4F2;
+  /* Studio Cream */
+  --light-2: #EAEAEA;
+  /* Off-cream for subtle boxes/panels */
+  --light-border: #B3B6B8;
+  /* Brushed Silver borders */
   --light-surface: #E0E0DF;
-  
-  --ink: #181A1B;          /* Titanium Carbon */
-  --ink-dim: #4A4D4F;      /* Muted tactical text */
-  --ink-muted: #8E9191;    /* Extremely muted label text */
+
+  --ink: #181A1B;
+  /* Titanium Carbon */
+  --ink-dim: #4A4D4F;
+  /* Muted tactical text */
+  --ink-muted: #8E9191;
+  /* Extremely muted label text */
 
   /* Technical Accents */
-  --accent-cyan: #40B3C4;  /* Hydraulic / cooling glow */
+  --accent-cyan: #40B3C4;
+  /* Hydraulic / cooling glow */
   --accent-cyan-dim: rgba(64, 179, 196, 0.2);
-  --accent-copper: #B5896E; /* Exposed traces / PCB */
+  --accent-copper: #B5896E;
+  /* Exposed traces / PCB */
 }
 
 html {
@@ -56,21 +64,25 @@ body::before {
   background-size: 200px 200px;
 }
 
-button, a {
+button,
+a {
   font-family: inherit;
 }
 
 /* Scrollbar styling for light theme */
-::-webkit-scrollbar { 
-  width: 6px; 
+::-webkit-scrollbar {
+  width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--light-2);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--ink-dim);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--ink-muted);
 }
