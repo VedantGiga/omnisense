@@ -9,6 +9,7 @@ import {
   useScroll,
   useTransform,
   useSpring,
+  Variants,
 } from "framer-motion";
 
 const STATS = [
@@ -18,7 +19,7 @@ const STATS = [
   { label: "HAPTICS", value: "10K POINTS" },
 ];
 
-const wordVariant = {
+const wordVariant: Variants = {
   hidden: { y: "110%" },
   visible: (i: number) => ({
     y: "0%",
@@ -26,7 +27,7 @@ const wordVariant = {
   }),
 };
 
-const fadeUpVariant = {
+const fadeUpVariant: Variants = {
   hidden: { opacity: 0, y: 18 },
   visible: (i: number) => ({
     opacity: 1,
@@ -35,12 +36,12 @@ const fadeUpVariant = {
   }),
 };
 
-const lineVariant = {
+const lineVariant: Variants = {
   hidden: { scaleX: 0 },
   visible: { scaleX: 1, transition: { duration: 0.75, ease: [0.16, 1, 0.3, 1] } },
 };
 
-const slideVariant = {
+const slideVariant: Variants = {
   hidden: { opacity: 0, x: 22 },
   visible: (i: number) => ({
     opacity: 1,
