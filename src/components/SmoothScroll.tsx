@@ -39,7 +39,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       gsap.ticker.remove(ticker);
       lenis.destroy();
       clearTimeout(refreshTimer);
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      // Do NOT kill all ScrollTriggers here — child components manage their own cleanup
     };
   }, []);
 

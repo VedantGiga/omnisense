@@ -28,14 +28,13 @@
 }
 
 html {
-  /* Lenis handles smooth scroll natively in JS, but keeping this fallback */
   scroll-behavior: initial;
   overflow-x: hidden;
-  background-color: var(--light);
+  background-color: #08080a;
 }
 
 body {
-  background-color: var(--light);
+  background-color: #08080a;
   color: var(--ink);
   font-family: var(--font);
   -webkit-font-smoothing: antialiased;

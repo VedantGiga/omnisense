@@ -1,356 +1,232 @@
+/* ── Section: rises from below Hero, rounded top corners flatten on scroll ── */
 .hero {
   position: relative;
   width: 100%;
-  height: 100vh;
-  background: linear-gradient(180deg, #f5f5f5 0%, #e8e8e8 100%);
+  height: 115vh;
   overflow: hidden;
+  background: #f4f4f2;          /* matches canvas frame background */
+  border-radius: 40px 40px 0 0; /* GSAP flattens these to 0 */
+  margin-top: -12rem;            /* peeks over Hero section */
+  box-shadow: 0 -40px 100px rgba(0, 0, 0, 0.18);
+  will-change: transform;
+  transform-origin: center bottom;
+  z-index: 30;
 }
 
-/* No overlays */
+/* ── Canvas — full-bleed frame renderer ─────────────────────────────────── */
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #f4f4f2; /* canvas bg before first frame draws */
+  display: block;
+  will-change: transform;
+}
+
+/* ── Vignette layers ─────────────────────────────────────────────────────── */
 .vignette {
-  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, transparent 40%, rgba(0, 0, 0, 0.35) 100%);
+  z-index: 2;
 }
 
 .vignetteBottom {
-  display: none;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 40%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 2;
 }
 
-/* ── Navigation ───────────────────────────────────────────────────────────── */
-.nav {
+/* ── Handle pill — decorative top indicator ──────────────────────────────── */
+.handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.handlePill {
+  width: 48px;
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+/* ── Top bar ─────────────────────────────────────────────────────────────── */
+.topBar {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 32px 52px;
-}
-
-.navBrand {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: #0a0a0a;
-}
-
-.navBrandLight {
-  font-weight: 300;
-  color: rgba(10, 10, 10, 0.55);
-}
-
-.navLinks {
-  display: flex;
-  gap: 40px;
-  list-style: none;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.navLinks a {
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  color: rgba(10, 10, 10, 0.65);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.navLinks a:hover {
-  color: #0a0a0a;
-}
-
-.navCta {
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  color: rgba(10, 10, 10, 0.7);
-  text-decoration: none;
-  padding: 8px 20px;
-  border: 1px solid rgba(10, 10, 10, 0.2);
-  border-radius: 100px;
-  transition: all 0.25s ease;
-  display: inline-block;
-}
-
-.navCta:hover {
-  border-color: rgba(10, 10, 10, 0.5);
-  color: #0a0a0a;
-  background: rgba(10, 10, 10, 0.05);
-}
-
-/* ── Hero text block — editorial bottom-left ──────────────────────────────── */
-.textBlock {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  padding: 40px 60px 0;
   z-index: 10;
-  padding: 0 52px 60px;
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+  pointer-events: none;
 }
 
-.eyebrow {
+.topBarLabel {
+  font-family: var(--font-mono), monospace;
   font-size: 10px;
   font-weight: 500;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: rgba(10, 10, 10, 0.4);
-  display: block;
+  color: rgba(255, 255, 255, 0.4);
 }
 
-.headlineWrap {
-  display: flex;
-  flex-direction: column;
-  line-height: 0.9;
-  overflow: hidden;
-}
-
-.headline {
-  font-size: clamp(72px, 10vw, 148px);
-  font-weight: 800;
-  letter-spacing: -0.04em;
-  color: #0a0a0a;
-  line-height: 0.9;
-  display: block;
-  text-transform: uppercase;
-}
-
-.headlineRow {
-  display: flex;
-  align-items: baseline;
-}
-
-.headlineItalic {
-  font-size: clamp(72px, 10vw, 148px);
-  font-weight: 300;
-
-  letter-spacing: -0.04em;
-  color: rgba(10, 10, 10, 0.45);
-  line-height: 0.9;
-  text-transform: uppercase;
-}
-
-.textFooter {
-  display: flex;
-  align-items: center;
-  gap: 52px;
-  padding-top: 4px;
-}
-
-.subtext {
-  font-size: 14px;
-  line-height: 1.65;
-  color: rgba(10, 10, 10, 0.55);
-  font-weight: 400;
-  letter-spacing: -0.005em;
-}
-
-.cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  white-space: nowrap;
-  font-size: 12.5px;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: rgba(10, 10, 10, 0.7);
-  text-decoration: none;
-  padding-bottom: 4px;
-  border-bottom: 1px solid rgba(10, 10, 10, 0.3);
-  transition: color 0.25s ease, border-color 0.25s ease;
-}
-
-.cta:hover {
-  color: #0a0a0a;
-  border-color: rgba(10, 10, 10, 0.7);
-}
-
-/* ── Scroll indicator ─────────────────────────────────────────────────────── */
-.scrollIndicator {
-  position: absolute;
-  bottom: 44px;
-  right: 52px;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: rgba(10, 10, 10, 0.35);
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.scrollDot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: rgba(10, 10, 10, 0.4);
-}
-
-/* ── Content overlay ──────────────────────────────────────────────────────── */
+/* ── Bottom editorial content ────────────────────────────────────────────── */
 .content {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 15;
-  padding: 0 52px 80px;
+  padding: 0 60px 72px;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .textWrap {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 900px;
+  gap: 16px;
+  max-width: 560px;
 }
 
-/* ── Frame counter ────────────────────────────────────────────────────────── */
-.frameHint {
-  position: absolute;
-  bottom: 20px;
-  left: 52px;
-  z-index: 10;
-  font-size: 9.5px;
-  font-weight: 400;
-  letter-spacing: 0.14em;
-  color: rgba(10, 10, 10, 0.25);
-  text-transform: uppercase;
-}
-
-@media (max-width: 768px) {
-  .nav {
-    padding: 24px 28px;
-  }
-
-  .navLinks {
-    display: none;
-  }
-
-  .textBlock {
-    padding: 0 28px 52px;
-  }
-
-  .scrollIndicator {
-    right: 28px;
-  }
-
-  .frameHint {
-    left: 28px;
-  }
-}
-
-.annotation {
-  position: absolute;
-  z-index: 30;
-  color: white;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+.eyebrow {
   display: flex;
-  flex-direction: column;
-  gap: 4px;
+  align-items: center;
+  gap: 16px;
+}
+
+.eyebrowText {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.eyebrowLine {
+  width: 32px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.headline {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(48px, 8vw, 100px);
+  font-weight: 400;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: #fff;
+}
+
+.subtext {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ── Right-side vertical progress ────────────────────────────────────────── */
+.progress {
+  position: absolute;
+  right: 52px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
   pointer-events: none;
 }
 
-.annotTitle {
-  font-family: var(--font-mono), monospace;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-  color: rgba(255, 255, 255, 0.8);
+.progressTrack {
+  position: relative;
+  width: 1px;
+  height: 120px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 100px;
+  overflow: hidden;
 }
 
-.annotDesc {
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.5);
+.progressFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;               /* updated imperatively via ref */
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 100px;
+  transition: none;         /* no CSS transition — scrub drives it directly */
 }
 
-.annotLine {
-  width: 40px;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.3);
-  margin-top: 8px;
-}
-
-.annotation_topLeft {
-  top: 30%;
-  left: 15%;
-}
-
-.annotation_topRight {
-  top: 25%;
-  right: 15%;
-  align-items: flex-end;
-  text-align: right;
-}
-
-.annotation_topRight .annotLine {
-  align-self: flex-end;
-}
-
-.annotation_bottomLeft {
-  bottom: 25%;
-  left: 20%;
-}
-
-.annotation_center {
-  top: 50%;
+/* ── Scroll hint ─────────────────────────────────────────────────────────── */
+.scrollHint {
+  position: absolute;
+  bottom: 32px;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none;
+  transition: opacity 0.6s ease; /* smooth fade when JS sets opacity */
 }
 
-.annotation_center .annotLine {
-  width: 80px;
+.scrollLine {
+  width: 1px;
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  animation: scrollPulse 2s ease-in-out infinite;
 }
 
+.scrollLabel {
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .nav {
-    padding: 24px 28px;
+  .hero {
+    margin-top: -5rem;
+    border-radius: 28px 28px 0 0;
   }
 
-  .navLinks {
+  .topBar,
+  .content {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+
+  .content {
+    padding-bottom: 48px;
+  }
+
+  .progress {
+    right: 20px;
+  }
+
+  .subtext {
     display: none;
-  }
-
-  .textBlock {
-    padding: 0 28px 52px;
-  }
-
-  .scrollIndicator {
-    right: 28px;
-  }
-
-  .frameHint {
-    left: 28px;
-  }
-
-  .annotation_topRight {
-    right: 24px;
-    top: 90px;
-    max-width: 180px;
-  }
-
-  .annotation_topLeft {
-    left: 24px;
-    top: 90px;
-    max-width: 180px;
-  }
-
-  .annotation_bottomLeft {
-    left: 24px;
-    bottom: 120px;
-    max-width: 200px;
-    padding: 16px;
-  }
-
-  .annotation_center {
-    max-width: 280px;
   }
 }

@@ -56,8 +56,9 @@ const CanvasSequence = forwardRef<CanvasSequenceHandle, CanvasSequenceProps>(
 
       const ctx = canvas.getContext("2d", { alpha: false });
       if (ctx) {
+        // CRITICAL: reset transform before scaling — prevents DPR accumulation on resize
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
         ctx.scale(dpr, dpr);
-        // Re-apply after scale (some browsers reset on resize)
         ctx.imageSmoothingEnabled = true;
         ctx.imageSmoothingQuality = "high";
         ctxRef.current = ctx;
@@ -71,19 +72,16 @@ const CanvasSequence = forwardRef<CanvasSequenceHandle, CanvasSequenceProps>(
       if (!canvas || !ctx) return;
 
       const img = imagesRef.current[index];
-      
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+
       const dpr = dprRef.current;
       const canW = canvas.width / dpr;
       const canH = canvas.height / dpr;
 
-      ctx.fillStyle = "#f0f0f0";
-      ctx.fillRect(0, 0, canW, canH);
-
-      if (!img || !img.complete || img.naturalWidth === 0) return;
-
       const iW = img.naturalWidth;
       const iH = img.naturalHeight;
 
+      // object-fit: cover — JPEGs fully cover canvas, no fill needed (eliminates flicker)
       const scale = Math.max(canW / iW, canH / iH);
       const drawW = iW * scale;
       const drawH = iH * scale;
@@ -175,11 +173,10 @@ const CanvasSequence = forwardRef<CanvasSequenceHandle, CanvasSequenceProps>(
           position: "absolute",
           top: 0,
           left: 0,
-          width: "100vw",
-          height: "100vh",
-          zIndex: 1,
+          width: "100%",
+          height: "100%",
           display: "block",
-          willChange: "contents",
+          willChange: "transform",
         }}
       />
     );

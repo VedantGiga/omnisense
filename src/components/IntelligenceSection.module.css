@@ -26,10 +26,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom,
-      rgba(0, 0, 0, 0.5) 0%,
-      rgba(0, 0, 0, 0.1) 40%,
-      rgba(0, 0, 0, 0.6) 100%);
+  background: #08080a;
+  transform-origin: top center;
+  z-index: 20;
+  pointer-events: none;
 }
 
 .container {

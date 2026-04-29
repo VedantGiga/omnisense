@@ -22,7 +22,7 @@ const SHOWCASE_IMAGES = [
     src: "/omnisense-3rd-image.png",
     eyebrow: "BIOMETRIC SYNCHRONIZATION",
     headline: "Syncs with neural oscillations",
-    desc: "An underlying complex vascular scanner array that syncs the device’s latency with the user’s resting heart rate and neural oscillations.",
+    desc: "An underlying complex vascular scanner array that syncs the device's latency with the user's resting heart rate and neural oscillations.",
   },
   {
     src: "/4thimage.png",
@@ -38,38 +38,29 @@ const SHOWCASE_IMAGES = [
   },
 ];
 
-function Slide({ img, idx }: { img: typeof SHOWCASE_IMAGES[0], idx: number }) {
+function Slide({ img, idx }: { img: typeof SHOWCASE_IMAGES[0]; idx: number }) {
   const slideRef = useRef<HTMLDivElement>(null);
 
-  // Use Framer Motion useScroll - much more reliable in pinned environments
   const { scrollYProgress } = useScroll({
     target: slideRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "end start"],
   });
 
-  // Create smooth spring animations for that "weighted" premium feel
   const smoothProgress = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
-  // Parallax transforms
   const y = useTransform(smoothProgress, [0, 1], ["-15%", "15%"]);
-  const scale = useTransform(smoothProgress, [0, 0.5, 1], [1.2, 1.05, 1.2]);
   const opacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-
-  // Technical text movement
   const textYTop = useTransform(smoothProgress, [0, 1], [40, -40]);
   const textYBottom = useTransform(smoothProgress, [0, 1], [-40, 40]);
 
   return (
     <div ref={slideRef} className={styles.slide}>
       <motion.div style={{ opacity }} className={styles.imageContainer}>
-        <motion.div
-          style={{ y, scale }}
-          className={styles.parallaxWrapper}
-        >
+        <motion.div style={{ y }} className={styles.parallaxWrapper}>
           <Image
             src={img.src}
             alt={img.headline}
@@ -80,30 +71,21 @@ function Slide({ img, idx }: { img: typeof SHOWCASE_IMAGES[0], idx: number }) {
           />
         </motion.div>
         <div className={styles.textOverlay} />
-
-        {/* Technical Corner Accents */}
         <div className={styles.cornerTL} />
         <div className={styles.cornerBR} />
       </motion.div>
 
-      <motion.div
-        style={{ y: textYTop, opacity }}
-        className={styles.contentTop}
-      >
+      <motion.div style={{ y: textYTop, opacity }} className={styles.contentTop}>
         <span className={styles.eyebrow}>{img.eyebrow}</span>
         <h2 className={styles.headline}>{img.headline}</h2>
       </motion.div>
 
-      <motion.div
-        style={{ y: textYBottom, opacity }}
-        className={styles.contentBottom}
-      >
+      <motion.div style={{ y: textYBottom, opacity }} className={styles.contentBottom}>
         <p className={styles.desc}>{img.desc}</p>
       </motion.div>
 
-      {/* Index Indicator */}
       <div className={styles.slideIndex}>
-        <span className={styles.indexNum}>{String(idx + 1).padStart(2, '0')}</span>
+        <span className={styles.indexNum}>{String(idx + 1).padStart(2, "0")}</span>
         <div className={styles.indexLine} />
       </div>
     </div>

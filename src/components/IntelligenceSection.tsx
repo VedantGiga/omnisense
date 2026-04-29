@@ -55,24 +55,64 @@ const INTELLIGENCE_CARDS = [
 export default function IntelligenceSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     const ctx = gsap.context(() => {
-      // Reveal headers
-      gsap.fromTo([`.${styles.title}`, `.${styles.subtitle}`],
-        { opacity: 0, y: 20 },
+
+      // --- CURTAIN REVEAL: plays once when section enters viewport ---
+      if (overlayRef.current) {
+        gsap.fromTo(
+          overlayRef.current,
+          { scaleY: 1 },
+          {
+            scaleY: 0,
+            duration: 1.2,
+            ease: "power3.inOut",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+
+      // --- BG IMAGE: subtle zoom on reveal ---
+      if (bgRef.current) {
+        gsap.fromTo(
+          bgRef.current,
+          { scale: 1.06 },
+          {
+            scale: 1,
+            duration: 1.4,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          }
+        );
+      }
+
+      // --- HEADER: slide up once section is revealed ---
+      gsap.fromTo(
+        [`.${styles.title}`, `.${styles.subtitle}`],
+        { opacity: 0, y: 40 },
         {
           opacity: 1,
           y: 0,
           duration: 0.8,
-          stagger: 0.15,
-          ease: "power2.out",
+          stagger: 0.12,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: "top 75%",
-          }
+            start: "top 30%",
+          },
         }
       );
 
@@ -104,16 +144,19 @@ export default function IntelligenceSection() {
 
   return (
     <section ref={sectionRef} className={styles.section}>
-      <div className={styles.background}>
-        <Image
-          src="/omnisense_intelligence_bg_png_1777170023828.png"
-          alt="Natural Intelligence"
-          fill
-          className={styles.bgImage}
-          priority
-        />
-        <div className={styles.overlay} />
-      </div>
+        <div ref={bgRef} className={styles.background}>
+          <Image
+            src="/omnisense_intelligence_bg_png_1777170023828.png"
+            alt="Natural Intelligence"
+            fill
+            className={styles.bgImage}
+            priority
+            sizes="100vw"
+          />
+        </div>
+
+        {/* Overlay at section level — above both background (z:1) and container (z:10) */}
+        <div ref={overlayRef} className={styles.overlay} />
 
       <div className={styles.container}>
         <div className={styles.header}>
