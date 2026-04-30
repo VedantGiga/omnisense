@@ -11,7 +11,7 @@
   border-radius: 100px;
   padding: 6px 6px 6px 24px;
   gap: 20px;
-  z-index: 1000;
+  z-index: 10000;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
@@ -108,16 +108,17 @@
 .modalBackdrop {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 9990;
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 24px;
+  padding: 100px 12px 24px 12px;
+  overflow-y: auto; /* Allow scrolling if the menu is taller than the phone screen */
 }
 
 .modalMenu {
   background: #2a2b2d;
-  width: 95%;
+  width: 100%;
   max-width: 460px;
   border-radius: 32px;
   padding: 24px;
@@ -224,4 +225,39 @@
   color: rgba(255, 255, 255, 0.4);
   letter-spacing: 0.05em;
   text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+  .menuGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .card {
+    padding: 16px 12px;
+  }
+  .card:nth-child(1), .card:nth-child(2) {
+    grid-column: span 1;
+    aspect-ratio: 4/5;
+  }
+  .card:nth-child(3) {
+    grid-column: span 2;
+    aspect-ratio: 2/1;
+    padding: 20px 24px;
+  }
+  .card:nth-child(4) {
+    grid-column: span 2;
+    aspect-ratio: 2/1;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  .card:nth-child(5), .card:nth-child(6) {
+    grid-column: span 1;
+    aspect-ratio: 1/1.3;
+  }
+  .imgWide {
+    width: 40%;
+    right: -10px;
+  }
+  .cardTitle {
+    font-size: 12px;
+  }
 }

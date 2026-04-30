@@ -165,3 +165,41 @@
     min-height: 400px;
   }
 }
+
+@media (max-width: 768px) {
+  .section {
+    padding-top: 80px;
+  }
+  .introRow {
+    padding: 0 5vw 40px 5vw;
+    gap: 24px;
+  }
+  .introTitle {
+    font-size: clamp(36px, 8vw, 48px);
+  }
+  .introDesc {
+    font-size: clamp(18px, 4vw, 24px);
+  }
+  .gridCol {
+    padding: 40px 5vw;
+  }
+  .specRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 20px 0;
+  }
+  .specValue {
+    text-align: left;
+    max-width: 100%;
+  }
+  .imageWrap {
+    min-height: 200px;
+    height: 250px;
+    max-width: 80%;
+    margin: 0 auto;
+  }
+  .label {
+    margin-bottom: 40px;
+  }
+}

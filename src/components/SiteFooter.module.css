@@ -175,6 +175,37 @@
 }
 
 @media (max-width: 768px) {
+  .footer {
+    padding-top: 60px;
+  }
+
+  .middleSection {
+    margin-bottom: 40px;
+  }
+
+  .taglineWrapper {
+    padding: 10px 20px 40px 20px;
+  }
+
+  .horizontalLinks {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 24px;
+  }
+
+  .navLink {
+    padding: 24px 10px;
+    font-size: 12px;
+  }
+
+  .navLink:nth-child(even) {
+    border-right: none;
+  }
+
+  .navLink:nth-child(1),
+  .navLink:nth-child(2) {
+    border-bottom: 1px solid var(--light-border, rgba(0, 0, 0, 0.1));
+  }
+
   .topRow {
     padding: 48px 24px;
     gap: 60px;
@@ -186,7 +217,7 @@
   }
 
   .giantWordmarkWrap {
-    padding: 24px;
+    height: clamp(150px, 25vh, 300px);
   }
 
   .giantWordmark {

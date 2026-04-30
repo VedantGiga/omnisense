@@ -170,23 +170,51 @@
 }
 
 @media (max-width: 768px) {
+  .slide {
+    min-height: 100dvh;
+    height: 100dvh;
+  }
+
+  .imageContainer {
+    height: 50vh;
+    top: 25vh;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  }
+
+  .parallaxWrapper {
+    height: 120%;
+    top: -10%;
+  }
+
   .contentTop {
-    top: 40px;
+    top: 10vh;
     left: 24px;
+    right: 24px;
+    max-width: 100%;
   }
 
   .contentBottom {
-    bottom: 40px;
+    bottom: 10vh;
     left: 24px;
     right: 24px;
+    max-width: 100%;
     text-align: left;
   }
 
   .headline {
     font-size: 28px;
+    /* Remove text shadow since it's on a black background now */
+    text-shadow: none; 
   }
 
   .desc {
     font-size: 15px;
+    text-shadow: none;
+  }
+
+  /* Hide the tech corners on mobile to keep it clean */
+  .cornerTL, .cornerBR {
+    display: none;
   }
 }

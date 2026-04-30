@@ -5,6 +5,7 @@ import ModelShowcase from "@/components/ModelShowcase";
 import Specifications from "@/components/Specifications";
 import ImageShowcase from "@/components/ImageShowcase";
 import IntelligenceSection from "@/components/IntelligenceSection";
+import FAQ from "@/components/FAQ";
 import SiteFooter from "@/components/SiteFooter";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <ImageShowcase />
       <IntelligenceSection />
       <Specifications />
+      <FAQ />
       <SiteFooter />
     </main>
   );
