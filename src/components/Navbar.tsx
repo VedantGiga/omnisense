@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import styles from "./Navbar.module.css";
 
 export default function Navbar() {
@@ -11,8 +12,8 @@ export default function Navbar() {
   return (
     <>
       <nav className={styles.pillNav}>
-        <div className={styles.brand}>OmniSense</div>
-        <button className={styles.preOrderBtn}>Pre-order</button>
+        <Link href="/" className={styles.brand} style={{ textDecoration: 'none' }}>OmniSense</Link>
+        <Link href="/pre-order" className={styles.preOrderBtn} style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>Pre-order</Link>
         <div className={styles.navIcons}>
           <button className={styles.iconBtn} aria-label="Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? (

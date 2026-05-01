@@ -31,7 +31,7 @@ const FAQ_DATA = [
   }
 ];
 
-function AccordionItem({ item, index, isOpen, onClick }: { item: any, index: number, isOpen: boolean, onClick: () => void }) {
+function AccordionItem({ item, index, isOpen, onClick }: { item: { question: string; answer: string }, index: number, isOpen: boolean, onClick: () => void }) {
   return (
     <div className={styles.item}>
       <button className={`${styles.trigger} ${isOpen ? styles.isOpen : ""}`} onClick={onClick} aria-expanded={isOpen}>
