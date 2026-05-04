@@ -2,65 +2,132 @@
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: #080808;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
-}
-
-.wordmark {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.32em;
-  text-transform: uppercase;
-  color: rgba(242, 242, 242, 0.35);
-}
-
-.progressWrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-}
-
-.track {
-  width: 180px;
-  height: 1px;
-  background: rgba(242, 242, 242, 0.1);
   overflow: hidden;
 }
 
-.bar {
+/* Background panels for split transition */
+.panelLeft, .panelRight {
+  position: absolute;
+  top: 0;
+  width: 50%;
   height: 100%;
+  background: #080808;
+  z-index: -1;
+}
+
+.panelLeft { left: 0; border-right: 1px solid rgba(255, 255, 255, 0.03); }
+.panelRight { right: 0; }
+
+.gridOverlay {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 48px;
   width: 100%;
-  background: linear-gradient(
-    90deg,
-    rgba(242, 242, 242, 0.3),
-    rgba(242, 242, 242, 0.9)
-  );
-  transform: scaleX(0);
-  transform-origin: left center;
 }
 
-.counter {
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.08em;
-  color: rgba(242, 242, 242, 0.25);
-  font-variant-numeric: tabular-nums;
+.wordmark {
+  display: flex;
+  gap: 12px;
+  font-family: var(--font-syncopate), sans-serif;
+  font-size: clamp(14px, 4vw, 24px);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.1em;
 }
 
-.hint {
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  color: rgba(242, 242, 242, 0.18);
-  text-transform: lowercase;
+.letter {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 240px;
+}
+
+.statusLine {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  opacity: 0;
+}
+
+.statusLine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 30%;
+  background: #fff;
+  animation: scan 2s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0% { left: -10%; opacity: 0; }
+  50% { opacity: 1; }
+  100% { left: 110%; opacity: 0; }
+}
+
+.statusText {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono), monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.progressValue {
+  color: #fff;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono), monospace;
+  font-size: 8px;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.15);
+  text-align: center;
+}
+
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.03), transparent);
+  animation: moveScanline 8s linear infinite;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes moveScanline {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100vh); }
 }

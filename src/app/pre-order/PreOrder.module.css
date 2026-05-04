@@ -432,7 +432,12 @@
   }
 
   .imageWrap {
-    height: 50%;
-    top: 15%;
+    width: 100vw;
+    height: 50vh;
+    top: -5%; /* Pull up slightly to clear the purchase panel */
+  }
+
+  .productImage {
+    transform: scale(1.15);
   }
 }

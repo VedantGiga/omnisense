@@ -54,9 +54,6 @@ function Slide({ img, idx }: { img: typeof SHOWCASE_IMAGES[0]; idx: number }) {
 
   const y = useTransform(smoothProgress, [0, 1], ["-15%", "15%"]);
   const opacity = useTransform(smoothProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const textYTop = useTransform(smoothProgress, [0, 1], [40, -40]);
-  const textYBottom = useTransform(smoothProgress, [0, 1], [-40, 40]);
-
   return (
     <div ref={slideRef} className={styles.slide}>
       <motion.div style={{ opacity }} className={styles.imageContainer}>
@@ -75,14 +72,38 @@ function Slide({ img, idx }: { img: typeof SHOWCASE_IMAGES[0]; idx: number }) {
         <div className={styles.cornerBR} />
       </motion.div>
 
-      <motion.div style={{ y: textYTop, opacity }} className={styles.contentTop}>
-        <span className={styles.eyebrow}>{img.eyebrow}</span>
-        <h2 className={styles.headline}>{img.headline}</h2>
-      </motion.div>
+      <div className={styles.contentTop}>
+        <motion.span 
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+          viewport={{ once: false, amount: 0.5 }}
+          className={styles.eyebrow}
+        >
+          {img.eyebrow}
+        </motion.span>
+        <motion.h2 
+          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: false, amount: 0.5 }}
+          className={styles.headline}
+        >
+          {img.headline}
+        </motion.h2>
+      </div>
 
-      <motion.div style={{ y: textYBottom, opacity }} className={styles.contentBottom}>
-        <p className={styles.desc}>{img.desc}</p>
-      </motion.div>
+      <div className={styles.contentBottom}>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: false, amount: 0.5 }}
+          className={styles.desc}
+        >
+          {img.desc}
+        </motion.p>
+      </div>
 
       <div className={styles.slideIndex}>
         <span className={styles.indexNum}>{String(idx + 1).padStart(2, "0")}</span>

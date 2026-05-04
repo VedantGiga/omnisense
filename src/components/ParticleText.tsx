@@ -45,14 +45,14 @@ class Particle {
     const targetY = this.scatterY + (this.originY - this.scatterY) * progressValue;
 
     // Mouse repulsion (haptic interactivity)
-    const dx = mouse.x - this.x;
-    const dy = mouse.y - this.y;
-    const distance = Math.sqrt(dx * dx + dy * dy);
+    let dx = mouse.x - this.x;
+    let dy = mouse.y - this.y;
+    let distance = Math.sqrt(dx * dx + dy * dy);
 
     if (distance < mouse.radius) {
-      const forceDirectionX = dx / distance;
-      const forceDirectionY = dy / distance;
-      const force = (mouse.radius - distance) / mouse.radius;
+      let forceDirectionX = dx / distance;
+      let forceDirectionY = dy / distance;
+      let force = (mouse.radius - distance) / mouse.radius;
       // Repel
       this.x -= forceDirectionX * force * 15;
       this.y -= forceDirectionY * force * 15;
@@ -118,7 +118,7 @@ export default function ParticleText({ text, progress }: ParticleTextProps) {
       ctx.font = `700 ${fontSize}px ${fontFamily}`;
 
       // Measure how wide the text is
-      const metrics = ctx.measureText(text);
+      let metrics = ctx.measureText(text);
       const maxWidth = width * 1.0; // Bleed off the edges (115% of width) for massive scale
 
       // If the text is too wide, scale the font size down proportionally

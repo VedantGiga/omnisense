@@ -82,7 +82,12 @@ export default function PreOrderPage() {
   // We wrap between -75% and -25% (a 50% span = exactly 2 sets).
   // This guarantees we always have at least 1 full set (25%) of buffer on BOTH left and right sides!
   // The `+ 25vw` centers the 50vw-wide images perfectly in the middle of the screen.
-  const x = useTransform(baseX, (v) => `calc(${wrap(-75, -25, v)}% + 25vw)`);
+  // On mobile, images are 100vw, so no offset is needed to center. 
+  // On desktop (50vw), we use 25vw to center the 50vw-wide image.
+  const x = useTransform(baseX, (v) => {
+    const offset = typeof window !== "undefined" && window.innerWidth < 768 ? 0 : 25;
+    return `calc(${wrap(-75, -25, v)}% + ${offset}vw)`;
+  });
 
   useAnimationFrame((t, delta) => {
     if (isDragging.current) return; // Pause ambient/scroll movement while user is physically dragging
@@ -102,9 +107,11 @@ export default function PreOrderPage() {
   };
 
   const handlePan = (e: Event, info: PanInfo) => {
-    // Translate pixel drag into percentage movement
-    // 1 viewport is 1/12th of the track (8.333%) because track is 1200vw total
-    const movePercent = (info.delta.x / window.innerWidth) * 8.333;
+    // 1 viewport width is a different % of the track depending on image width
+    // Mobile: 100vw images -> 1 viewport = 1/24th (4.166%)
+    // Desktop: 50vw images -> 1 viewport = 1/12th (8.333%)
+    const multiplier = window.innerWidth < 768 ? (100 / 24) : (100 / 12);
+    const movePercent = (info.delta.x / window.innerWidth) * multiplier;
     baseX.set(baseX.get() + movePercent);
   };
 

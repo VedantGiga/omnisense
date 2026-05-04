@@ -40,6 +40,8 @@ export default function SiteFooter() {
       <div className={styles.bottomBar}>
         <span className={styles.copyright}>© 2026 Omnisense. All rights reserved.</span>
 
+        <span className={styles.disclaimer}>Concept only. This device does not exist.</span>
+
         <div className={styles.socials}>
           {["Instagram", "Twitter", "LinkedIn"].map((s) => (
             <a key={s} href="#" className={styles.socialLink}>

@@ -7,9 +7,9 @@ import { motion, useScroll, useTransform, useInView } from "framer-motion";
 
 const INTELLIGENCE_CARDS = [
   {
-    eyebrow: "NEURAL COMMAND",
-    title: "Synergy",
-    desc: "A natural language A.I. interface that interprets thought-patterns into system commands. Synergy learns your workflow and anticipates your next move before you even make it.",
+    eyebrow: "SENSORY ENGINE",
+    title: "Neural-Haptic Synthesis",
+    desc: "Bridges the gap between digital and physical. Translates environmental metadata—like atmospheric pressure and spatial density—into localized, high-fidelity physical sensations on your skin.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z" />
@@ -18,34 +18,45 @@ const INTELLIGENCE_CARDS = [
     )
   },
   {
-    eyebrow: "REAL-TIME TRANSLATION",
-    title: "Babl",
-    desc: "Using advanced neural-beamforming, Babl isolates specific voices in a crowd and provides zero-latency translation directly into your sensory stream.",
+    eyebrow: "ZERO-LATENCY",
+    title: "Real-Time Biometric Sync",
+    desc: "Utilizing an underlying complex vascular scanner array, the device continuously monitors your resting heart rate and neural oscillations to ensure flawless synchronization.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-        <text x="7" y="14" fontSize="8" fontFamily="sans-serif" fill="currentColor">あa</text>
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
       </svg>
     )
   },
   {
-    eyebrow: "SUPERHUMAN HEARING",
-    title: "Owl",
-    desc: "Owl isolates environmental noise using 16 external microphones, allowing you to focus on subtle sounds in high-density acoustic environments.",
+    eyebrow: "ENVIRONMENTAL SCAN",
+    title: "Holographic Data Mapping",
+    desc: "Read invisible environmental metrics. The device processes electromagnetic frequencies and thermal shifts, reconstructing them as subtle, tactile feedback without the need for a screen.",
     icon: (
       <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+        <polyline points="2 17 12 22 22 17" />
+        <polyline points="2 12 12 17 22 12" />
+      </svg>
+    )
+  },
+  {
+    eyebrow: "QUANTUM COOLING",
+    title: "Adaptive Thermal Management",
+    desc: "High-intensity quantum processing generates heat. The OmniSense utilizes a micro-cooling fan system and copper heat pipes to maintain a constant, comfortable surface temperature.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />
+      </svg>
+    )
+  },
+  {
+    eyebrow: "PRECISION ENGINEERING",
+    title: "Frictionless Articulation",
+    desc: "Housed within the chassis is a multi-axis nested micro-gear tuning system. This allows for ultra-fine calibration of sensory feedback, functioning silently and smoothly.",
+    icon: (
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="3" />
-      </svg>
-    )
-  },
-  {
-    eyebrow: "ASK ANYTHING",
-    title: "Sherlock",
-    desc: "Sherlock scans your environment for visual and data-based anomalies, providing real-time answers to complex spatial queries without a phone.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z" />
       </svg>
     )
   }
@@ -67,8 +78,8 @@ export default function IntelligenceSection() {
 
   // Transform scroll progress (0-1) into X translation for the cards
   // We want to move left by roughly (total width - viewport width)
-  // We use percentages to keep it responsive without measuring
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-65%"]);
+  // We use percentages to keep it responsive without measuring. Increased from -65% to -80% to fit 5 cards.
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-80%"]);
 
   return (
     <section ref={targetRef} className={styles.section}>
@@ -84,7 +95,7 @@ export default function IntelligenceSection() {
         >
           <Image
             src="/omnisense_intelligence_bg_png_1777170023828.png"
-            alt="Natural Intelligence"
+            alt="Core Capabilities"
             fill
             className={styles.bgImage}
             priority
@@ -101,7 +112,7 @@ export default function IntelligenceSection() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             >
-              Two taps to <br />intelligence
+              Core <br />Capabilities
             </motion.h2>
             <motion.p 
               className={styles.subtitle}
@@ -109,7 +120,7 @@ export default function IntelligenceSection() {
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
               transition={{ duration: 0.8, delay: 0.35, ease: "easeOut" }}
             >
-              The OmniSense Prime-X lets you talk to apps the way <br />you talk to people.
+              Bridging the gap between the digital and the physical. <br />Experience high-fidelity sensory feedback.
             </motion.p>
           </div>
 

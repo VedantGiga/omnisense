@@ -34,49 +34,50 @@
 .container {
   position: relative;
   z-index: 10;
-  padding: 100px 80px 0 80px;
+  padding: 6vh 80px 0 80px;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .header {
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
 .title {
   font-family: var(--font-display), sans-serif;
-  font-size: clamp(48px, 6vw, 84px);
+  font-size: clamp(36px, 5vw, 64px);
   line-height: 1.0;
   font-weight: 500;
   color: #fff;
   letter-spacing: -0.04em;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 }
 
 .subtitle {
-  font-size: 18px;
+  font-size: 16px;
   color: rgba(255, 255, 255, 0.7);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .cardsWrapper {
   display: flex;
-  gap: 32px;
-  padding-bottom: 80px;
+  gap: 24px;
+  padding-bottom: 4vh;
   width: fit-content;
   margin-top: auto;
 }
 
 .card {
-  min-width: 420px;
-  height: 380px;
+  min-width: 400px;
+  min-height: 300px;
+  height: auto;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(32px);
   -webkit-backdrop-filter: blur(32px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: 48px;
-  padding: 48px;
+  border-radius: 40px;
+  padding: 36px;
   display: flex;
   flex-direction: column;
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), background 0.4s ease;
@@ -91,7 +92,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 40px;
+  margin-bottom: 24px;
 }
 
 .cardEyebrow {
@@ -109,16 +110,16 @@
 
 .cardTitle {
   font-family: var(--font-display), sans-serif;
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 600;
   color: #fff;
-  margin-bottom: 24px;
+  margin-bottom: 16px;
   letter-spacing: -0.02em;
 }
 
 .cardDesc {
-  font-size: 16px;
-  line-height: 1.65;
+  font-size: 15px;
+  line-height: 1.5;
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -129,7 +130,8 @@
 
   .card {
     min-width: 360px;
-    height: 360px;
+    min-height: 360px;
+    height: auto;
     padding: 36px;
   }
 }
@@ -145,7 +147,8 @@
 
   .card {
     min-width: 300px;
-    height: 340px;
+    min-height: 340px;
+    height: auto;
     padding: 30px;
     border-radius: 32px;
   }

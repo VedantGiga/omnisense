@@ -40,9 +40,26 @@ export default function AssemblyHero() {
     const ih = img.naturalHeight;
     if (!iw || !ih || !cw || !ch) return;
 
-    // object-fit: cover in physical pixels
-    const scale = Math.max(cw / iw, ch / ih);
-    ctx.drawImage(img, (cw - iw * scale) / 2, (ch - ih * scale) / 2, iw * scale, ih * scale);
+    const isMobile = window.innerWidth < 768;
+
+    if (isMobile) {
+      // ── Vertical Visibility for Phones ─────────────────────────────────────
+      // We rotate the landscape footage 90 degrees so it fills the vertical screen.
+      ctx.save();
+      ctx.translate(cw / 2, ch / 2);
+      ctx.rotate(Math.PI / 2);
+      
+      // After rotation:
+      // Canvas width (cw) is now aligned with image height (ih)
+      // Canvas height (ch) is now aligned with image width (iw)
+      const scale = Math.max(ch / iw, cw / ih);
+      ctx.drawImage(img, -iw * scale / 2, -ih * scale / 2, iw * scale, ih * scale);
+      ctx.restore();
+    } else {
+      // ── Standard Desktop cover ─────────────────────────────────────────────
+      const scale = Math.max(cw / iw, ch / ih);
+      ctx.drawImage(img, (cw - iw * scale) / 2, (ch - ih * scale) / 2, iw * scale, ih * scale);
+    }
   }, []);
 
   // ── Resize canvas — also (re)creates the cached context ──────────────────────
